@@ -1,0 +1,36 @@
+name: Publish
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  check-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v1
+
+     - name: Install
+       run: npm ci
+       env:
+        HUSKY_SKIP_INSTALL: 1
+
+     - name: Lint
+       run: npm run lint
+        
+     - name: Test
+       run: npm run test
+       env:
+        CI: true
+
+     - name: Build
+       run: npm run build
+
+     - name: Deploy
+       uses: peaceiris/actions-gh-pages@v2
+       env:
+         PERSONAL_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+         PUBLISH_BRANCH: gh-pages
+         PUBLISH_DIR: ./build
