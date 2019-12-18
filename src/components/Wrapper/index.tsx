@@ -22,7 +22,7 @@ const Wrapper: React.FC = () => {
     setFetching(true);
     const fetched: StarshipProps[] = [];
 
-    for (let i = 0; i < 2; i++) {
+    const getAndPush = async (): Promise<void> => {
       const data = await fetchStarship();
 
       if (typeof data === 'object') {
@@ -33,7 +33,15 @@ const Wrapper: React.FC = () => {
         setError(true);
         setCardData([]);
       }
+    };
+
+    const fetchPromises = [];
+
+    for (let i = 0; i < 2; i++) {
+      fetchPromises.push(getAndPush());
     }
+
+    await Promise.all(fetchPromises); // eslint-disable-line no-undef
 
     setFetching(false);
 
