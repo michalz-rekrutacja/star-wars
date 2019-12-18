@@ -18,20 +18,14 @@ const GameCard: React.FC<StarshipProps> = props => {
   return (
     <Card>
       <CardContent>
-        {props.model && (
-          <Typography color="textSecondary" gutterBottom>
-            {props.model}
-          </Typography>
-        )}
-        {props.name && (
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.name}
-          </Typography>
-        )}
-        {typeof props.passengers === 'number' && (
-          <p>Passengers: {props.passengers}</p>
-        )}
-        {typeof props.crew === 'number' && <p>Crew: {props.crew}</p>}
+        <Typography color="textSecondary" gutterBottom>
+          {props.model}
+        </Typography>
+        <Typography gutterBottom variant="h5" component="h2">
+          {props.name}
+        </Typography>
+        <p>Passengers: {props.passengers}</p>
+        <p>Crew: {props.crew}</p>
       </CardContent>
     </Card>
   );
